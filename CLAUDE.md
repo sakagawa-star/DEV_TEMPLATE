@@ -20,7 +20,8 @@ DEV_TEMPLATE/
         ├── REQUIREMENTS_STANDARD.md  # 要求仕様書 記述基準（そのまま転用可）
         ├── DESIGN_STANDARD.md        # 機能設計書 記述基準（そのまま転用可）
         ├── BUGFIX_STANDARD.md        # 不具合修正 記述基準（そのまま転用可）
-        └── REVIEW_CRITERIA.md        # レビュー基準（そのまま転用可）
+        ├── REVIEW_CRITERIA.md        # レビュー基準（そのまま転用可）
+        └── codex-exec-ubuntu24-bwrap-fix.md  # Ubuntu24でのcodex exec bwrap対策（環境依存メモ）
 ```
 
 ## テンプレートの使い方（新規プロジェクト立ち上げ手順）
