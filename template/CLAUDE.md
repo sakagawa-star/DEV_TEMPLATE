@@ -47,6 +47,7 @@
 ├── CLAUDE.md               # 本ファイル
 ├── docs/                   # ドキュメント（開発プロセス基準）
 │   ├── BACKLOG.md
+│   ├── CHANGELOG.md
 │   ├── BUGFIX_STANDARD.md
 │   ├── DESIGN_STANDARD.md
 │   ├── REQUIREMENTS_STANDARD.md
@@ -74,25 +75,25 @@
 3. **ドキュメント保存** → 要求仕様書を `docs/issues/{案件フォルダ}/requirements.md`、機能設計書を `docs/issues/{案件フォルダ}/design.md` にファイル保存する。**保存が完了するまで実装に進んではならない**
 4. **レビュー（Codex → 人）** → 保存されたドキュメントを **Codex** でレビューする。実行方法は後述の「Codexによるレビューの実行方法」を参照。**まず Codex の再帰レビュー（修正→再レビュー）を重要度「高・中」がゼロに収束するまで回し、その後に人（ユーザー）がレビューする**（収束前に人レビューはしない）。レビュー実行時は `docs/REVIEW_CRITERIA.md` の基準に従うこと
 5. **修正（必要な場合）** → レビューで問題があれば、再調査してドキュメントを更新する。**ステップ2〜4を問題がなくなるまで繰り返す**
-6. **実装** → ドキュメント（要求仕様書・機能設計書・CLAUDE.md）を読んで実装する。実装完了後、「テスト」のルールに従ってテストを実行する
+6. **実装** → ドキュメント（要求仕様書・機能設計書・CLAUDE.md）を読んで実装する。実装は後述の「実装の実行方法（Sonnetサブエージェント）」に従い、Sonnet サブエージェントに委任する。実装完了後、「テスト」のルールに従ってテストを実行する
 7. **手動テスト** → ユーザーがテストする。以下の問題があれば `docs/BUGFIX_STANDARD.md` に従って修正計画を `docs/issues/{案件フォルダ}/investigation.md` に追記する（上書きしない。イテレーション番号を付けて履歴を残す）。**ユーザーの承認を得た上で、ステップ2〜7を繰り返す**（コード修正はステップ6で行う。ステップ7で直接コードを編集してはならない）
    - 不具合の発見
    - 要求通りに実装されていない
    - 要求仕様作成時のヒアリング漏れ
-8. **完了** → `docs/BACKLOG.md` のステータスを Closed に更新する。ファイルの追加・削除があった場合は `CLAUDE.md` のディレクトリ構成を最新に更新する
+8. **完了** → `docs/BACKLOG.md` のステータスを Closed に更新する。`docs/CHANGELOG.md` に完了内容を記録する。ファイルの追加・削除があった場合は `CLAUDE.md` のディレクトリ構成を最新に更新する。`README.md` に記載済みの内容（コマンド、CLIオプション、入力/出力形式、既定値、実行環境・依存条件）に変更があった場合は `README.md` を最新に更新する
 
 ### 不具合修正フロー（bug-XXX 案件）
 
 既存機能の不具合を修正する場合、以下のフローを**厳守**する。
 
-1. **案件作成** → `docs/issues/bug-{number}-{slug}/` フォルダを作成し、`docs/BACKLOG.md` に追加する。`README.md` に不具合の概要と再現手順を記録する
+1. **案件作成** → `docs/issues/bug-{number}-{slug}/` フォルダを作成し、`docs/BACKLOG.md` に追加する。案件フォルダの `docs/issues/bug-{number}-{slug}/README.md` に不具合の概要と再現手順を記録する（ルートの `README.md` ではない）
 2. **調査・修正計画** → `docs/BUGFIX_STANDARD.md` に従い、既存コードを調査する。修正計画を `docs/issues/{案件フォルダ}/investigation.md` に記録する。**この時点でコードを編集してはならない**
-3. **ドキュメント保存** → investigation.md の保存を確認する。**保存が完了するまで実装に進んではならない**
+3. **ドキュメント保存** → investigation.md の保存を確認する。調査の結果 `requirements.md` / `design.md` の修正が必要になった場合は、それらも併せて保存する。**保存が完了するまで実装に進んではならない**
 4. **レビュー（Codex → 人）** → 保存されたドキュメントを **Codex** でレビューする。実行方法は後述の「Codexによるレビューの実行方法」を参照。**まず Codex の再帰レビュー（修正→再レビュー）を重要度「高・中」がゼロに収束するまで回し、その後に人（ユーザー）がレビューする**（収束前に人レビューはしない）。レビュー実行時は `docs/REVIEW_CRITERIA.md` の基準に従うこと
 5. **修正（必要な場合）** → レビューで問題があれば、再調査してドキュメントを更新する。**ステップ2〜4を問題がなくなるまで繰り返す**
-6. **実装** → 承認された修正計画に沿ってコードを修正する。計画にない変更が必要になった場合は中断して報告する
+6. **実装** → 承認された修正計画に沿ってコードを修正する。実装は後述の「実装の実行方法（Sonnetサブエージェント）」に従い、Sonnet サブエージェントに委任する。計画にない変更が必要になった場合は中断して報告する
 7. **手動テスト** → ユーザーがテストする。問題があれば `docs/BUGFIX_STANDARD.md` に従って investigation.md にイテレーション番号を付けて追記し、**ユーザーの承認を得た上で、ステップ2〜7を繰り返す**（コード修正はステップ6で行う。ステップ7で直接コードを編集してはならない）
-8. **完了** → `docs/BACKLOG.md` のステータスを Closed に更新する。ファイルの追加・削除があった場合は `CLAUDE.md` のディレクトリ構成を最新に更新する
+8. **完了** → `docs/BACKLOG.md` のステータスを Closed に更新する。`docs/CHANGELOG.md` に完了内容を記録する。ファイルの追加・削除があった場合は `CLAUDE.md` のディレクトリ構成を最新に更新する。`README.md` に記載済みの内容（コマンド、CLIオプション、入力/出力形式、既定値、実行環境・依存条件）に変更があった場合は `README.md` を最新に更新する
 
 ### ドキュメント作成ルール
 
@@ -115,7 +116,8 @@ docs/issues/
     ├── README.md              # 概要、ステータス、再現手順
     ├── requirements.md        # 要求仕様書（機能追加時、REQUIREMENTS_STANDARD.md 準拠）
     ├── design.md              # 機能設計書（機能追加時、DESIGN_STANDARD.md 準拠）
-    └── investigation.md       # 不具合の調査・修正計画（BUGFIX_STANDARD.md 準拠）
+    ├── investigation.md       # 不具合の調査・修正計画（BUGFIX_STANDARD.md 準拠）
+    └── reviews/               # Codexレビューの結果（codex-NN.result.md のみ git 管理。full.log は gitignore）
 ```
 
 ### 命名規則
@@ -128,6 +130,8 @@ docs/issues/
 機能追加・不具合修正フローのステップ4（レビュー）では、Claude Code 自身が `codex exec` コマンドを実行して Codex にレビューさせる。Subagent は使わない。**Codex は逐次（前回セッションを `resume` で継続）で回し、重要度「高・中」がゼロに収束してから人レビューに進む**。並列にはしない（再レビューの収束確認＝「前回指摘が直ったか」の判定に前回文脈の引き継ぎが必要なため。初回の発見網羅性を上げたい大規模案件でのみ「初回だけ多観点並列→以降逐次」を検討）。
 
 使用するモデルは `~/.codex/config.toml` のデフォルト設定に従う。本ファイルのコマンドにはモデル指定（`-m`）を書かない。モデルを切り替えたい場合は `~/.codex/config.toml` を編集する（全プロジェクト共通で反映される）。
+
+**実行はバックグラウンドで行う**: Codex のレビューは reasoning effort の設定によっては1回10分を超えることがあり、Claude Code の Bash ツールのタイムアウト上限（最大10分）に抵触する。`codex exec` はバックグラウンド実行（`run_in_background`）とし、完了通知後に `codex-NN.result.md` を読んで指摘を確認する。`-o` による結果のファイル保存はこの運用を前提としている。
 
 > **Ubuntu 24系で `bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted` が出る場合**は、`docs/codex-exec-ubuntu24-bwrap-fix.md` を参照して AppArmor プロファイルを追加すること（ホスト側の user namespace 制限が原因。Codex のバグではない）。
 
@@ -153,7 +157,7 @@ codex exec -o docs/issues/{案件フォルダ}/reviews/codex-01.result.md \
 ```bash
 mkdir -p docs/issues/{案件フォルダ}/reviews
 codex exec -o docs/issues/{案件フォルダ}/reviews/codex-01.result.md \
-  "docs/REVIEW_CRITERIA.md および docs/BUGFIX_STANDARD.md の基準に従い、以下のドキュメントをレビューせよ: docs/issues/{案件フォルダ}/investigation.md 。瑣末な点へのクソリプはしないで、致命的な点のみ指摘して。発見した問題を重要度(高/中/低)で分類し、修正提案とともに報告すること。" \
+  "docs/REVIEW_CRITERIA.md および docs/BUGFIX_STANDARD.md の基準に従い、以下のドキュメントをレビューせよ: docs/issues/{案件フォルダ}/investigation.md 。requirements.md / design.md を変更した場合はそれらもレビュー対象に含めること。瑣末な点へのクソリプはしないで、致命的な点のみ指摘して。発見した問題を重要度(高/中/低)で分類し、修正提案とともに報告すること。" \
   > docs/issues/{案件フォルダ}/reviews/codex-01.full.log 2>&1
 ```
 
@@ -173,11 +177,36 @@ codex exec resume {SESSION_ID} -o docs/issues/{案件フォルダ}/reviews/codex
 
 重要度「高」「中」の指摘がゼロに収束するまで、修正 → 再レビュー（連番を進める）を繰り返す。**収束したら人（ユーザー）レビューに進む**（収束前に人レビューはしない）。
 
+### 実装の実行方法（Sonnetサブエージェント）
+
+機能追加・不具合修正フローのステップ6（実装）は、Claude Code 自身が直接コードを書くのではなく、Agent ツールで **model: sonnet** を指定したサブエージェントに委任する。
+
+#### サブエージェントへの指示に必ず含めること
+
+1. **必読ドキュメントと読む順序**: CLAUDE.md → 案件ドキュメント（機能追加は `requirements.md` と `design.md`、不具合修正は `investigation.md` と、変更した場合は関連する `requirements.md` / `design.md` も必読）→ 変更対象コード → 参考にする既存テスト
+2. **厳密準拠の指示**: 設計書・修正計画に厳密に従うこと。書かれていない独自判断・改善・リファクタは一切禁止
+3. **想定外事象の扱い**: 想定外の事象（設計書どおりに実装できない、ドキュメントと実コードの矛盾、テストが通らない等）が発生したら、**その場で回避策を実装せず直ちに中断**し、何が起きたか・どこまで完了したかを報告して終了すること。報告を受けたら「調査・計画 → requirements.md / design.md（または investigation.md）の修正」のステップに**必ず戻る**（レビューを経てから実装を再開する）
+4. **検証まで実施**: テストの全件実行（「テスト」のルールに従う）、`tests/results/{type}-{number}_test_result.txt` への出力保存、ドキュメントに定義された動作確認（実データ実行等）
+5. **禁止事項**: git commit / push はサブエージェントに行わせない。BACKLOG.md / CHANGELOG.md / CLAUDE.md / README.md の更新も行わせない（完了ステップ8で Claude Code 本体が行う）
+6. **報告形式**: 変更ファイル一覧、テスト結果サマリ、動作確認結果、想定外事象の有無
+
+#### 委任しない作業
+
+- 調査・計画、ドキュメント作成、Codexレビューの実行と指摘反映、完了処理（ステップ8）、git 操作は Claude Code 本体が行う
+
 ### コードレビュー
 
 - レビューでは重要度(高/中/低)で分類し、修正提案とともに報告する
 - 重要度:高と中は修正対象とする
 - レビュー基準の詳細は `docs/REVIEW_CRITERIA.md` を参照
+
+### テスト
+
+- テストは `tests/` ディレクトリに置く
+- テスト実行コマンド: {{例: `uv run pytest -v`}}
+- **テスト結果は `tests/results/` にファイル保存する**
+  - ファイル名：`{type}-{number}_test_result.txt`（例：`feat-001_test_result.txt`）
+  - 内容：テストコマンドの出力をそのまま保存する
 
 ## Claude Code 運用ルール
 
@@ -186,6 +215,23 @@ codex exec resume {SESSION_ID} -o docs/issues/{案件フォルダ}/reviews/codex
 - **`cd <path> && <command>` の連結は禁止。** Bashツールはプロジェクト作業ディレクトリで動くため `cd` は不要。連結すると先頭トークンが `cd` になり、`.claude/settings.json` / `.claude/settings.local.json` のallowlist（例: `Bash(codex exec *)`、`Bash(git status)`）が一致せず、毎回パーミッションプロンプトが発生する
 - 別ディレクトリで実行する必要がある場合は、コマンド側のオプションを使う（例: `git -C <path> status`、`make -C <path> ...`）
 - どうしても複数コマンド連結が必要な場合も、先頭トークンが安全・許可済みであるかを確認してから書く
+
+### git 操作の実行方法（Opusサブエージェント）
+
+git のコミット・プッシュは、Claude Code 本体が直接実行するのではなく、Agent ツールで **model: opus** を指定したサブエージェントに委任する。
+
+#### サブエージェントへの指示に必ず含めること
+
+1. **コミット内容の背景**: 何をなぜ変更したか（コミットメッセージ作成に必要な情報）を要約して渡す
+2. **ステージ対象の明示**: コミットに含めるファイルを列挙する。`.claude/settings.local.json` と `.claude/handovers/` 配下は含めない
+3. **コミットメッセージ**: 日本語。末尾トレーラーは `Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>`
+4. **Bashルールの継承**: `cd <path> && <command>` 連結禁止、`git -C <path> ...` 形式を使う
+5. **失敗時の扱い**: コンフリクト・push拒否等が起きたら対処（rebase, reset, force push 等）せず、状況をそのまま報告して終了する
+
+#### 委任しない作業
+
+- コミット可否の判断・タイミング（ユーザーの指示を受けて Claude Code 本体が起動する）
+- コミット後の結果検証（`git log -1 --stat` 等での確認は本体が行う）
 
 ## コーディング規約
 
@@ -196,7 +242,4 @@ codex exec resume {SESSION_ID} -o docs/issues/{案件フォルダ}/reviews/codex
 
 ## 完了済み案件
 
-<!-- 案件完了時にここへ追記する。形式例:
-- **feat-001**: 機能名（YYYY-MM-DD完了、要点を1〜2文で）
--->
-{{まだなければ「なし」}}
+詳細は `docs/BACKLOG.md`（一覧）および `docs/CHANGELOG.md`（リリース履歴）を参照。
