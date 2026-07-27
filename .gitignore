@@ -1,2 +1,2 @@
 .claude/settings.local.json
-reviews/*.full.log
+docs/issues/*/reviews/*.full.log
