@@ -12,6 +12,7 @@
 <!-- 記入例（削除して使うこと）:
 | feat-001 | 入力CSVの読み込み機能 | Closed | 2026-01-15 完了 |
 | bug-001 | 空ファイル入力でクラッシュ | Open | |
+| update-001 | 開発テンプレート改訂の取り込み | Open | |
 
 ステータス: Open / In Progress / Closed
 案件フォルダ（docs/issues/{ID}-{slug}/）の作成と同時に本表へ行を追加する。
