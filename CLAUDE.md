@@ -19,6 +19,7 @@ DEV_TEMPLATE/
 │       └── update-001-from-lift2d/ # 例: lift2d の運用実績を反映した案件
 └── template/                       # 新規プロジェクトへコピーするテンプレート一式（payload）
     ├── CLAUDE.md                   # 新規プロジェクト用 CLAUDE.md 雛形（{{ }} プレースホルダ入り）
+    ├── AGENTS.md                   # 新規プロジェクト用 Codex 指示ファイル（レビュー定型指示。そのまま転用可）
     ├── .gitignore                  # レビュー過程ログ等の除外設定（そのまま転用可）
     └── docs/
         ├── BACKLOG.md                # 案件一覧の空雛形（{{ }} プレースホルダ入り）
@@ -35,6 +36,7 @@ DEV_TEMPLATE/
 
 1. `template/` 配下を新規プロジェクトのルートへコピーする（`.gitignore` を含む）
    - `template/CLAUDE.md` → プロジェクトルートの `CLAUDE.md`
+   - `template/AGENTS.md` → プロジェクトルートの `AGENTS.md`
    - `template/.gitignore` → プロジェクトルートの `.gitignore`
    - `template/docs/*` → プロジェクトの `docs/`
 2. コピーした `CLAUDE.md` / `docs/BACKLOG.md` / `docs/TECH_STACK.md` の `{{ }}` プレースホルダをプロジェクト固有の内容に置き換え、記入例コメントを削除する

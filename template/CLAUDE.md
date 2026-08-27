@@ -45,6 +45,7 @@
 ```
 {{project-root}}/
 ├── CLAUDE.md               # 本ファイル
+├── AGENTS.md               # Codex が起動時に読む指示ファイル（レビュー定型指示）
 ├── docs/                   # ドキュメント（開発プロセス基準）
 │   ├── BACKLOG.md
 │   ├── CHANGELOG.md
@@ -172,6 +173,8 @@ update 案件は requirements.md / investigation.md を持たず、README.md（�
 
 使用するモデルは `~/.codex/config.toml` のデフォルト設定に従う。本ファイルのコマンドにはモデル指定（`-m`）を書かない。モデルを切り替えたい場合は `~/.codex/config.toml` を編集する（全プロジェクト共通で反映される）。
 
+定型指示（瑣末な指摘の抑止・重要度(高/中/低)分類・修正提案の要求・適用マーカー）はリポジトリ直下の `AGENTS.md` が起動時に供給するため、**依頼文には書かない**。AGENTS.md はセッション開始時にのみ読み込まれるため、変更しても `resume` で継続中のセッションには反映されない（新規の `codex exec` から有効になる）。
+
 **実行はバックグラウンドで行う**: Codex のレビューは reasoning effort の設定によっては1回10分を超えることがあり、Claude Code の Bash ツールのタイムアウト上限（最大10分）に抵触する。`codex exec` はバックグラウンド実行（`run_in_background`）とし、完了通知後に `codex-NN.result.md` を読んで指摘を確認する。`-o` による結果のファイル保存はこの運用を前提としている。
 
 > **Ubuntu 24系で `bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted` が出る場合**は、`docs/codex-exec-ubuntu24-bwrap-fix.md` を参照して AppArmor プロファイルを追加すること（ホスト側の user namespace 制限が原因。Codex のバグではない）。
@@ -183,13 +186,14 @@ update 案件は requirements.md / investigation.md を持たず、README.md（�
 - ファイル名はレビュー回ごとに連番（`codex-01`, `codex-02`, …）。
 - `result.md` のみ git 管理し、`full.log` は `.gitignore`（`docs/issues/*/reviews/*.full.log`）でローカルのみとする（リポジトリ肥大回避）。
 - `result.md` には Codex の生出力に加え、Claude Code の対応方針を追記してよい（冒頭に日付・対象・session id・初回/再の定型メタを置くと追いやすい）。
+- **`result.md` を読む際は冒頭の「[AGENTS.md適用]」マーカーを毎回確認する**。マーカーが無い場合は `AGENTS.md` の適用を確認できないため、その結果を採用せず、新規セッション（`resume` ではない新しい `codex exec`）で再実行する。再実行でもマーカーが出ない場合は、`AGENTS.md` の配置（リポジトリ直下にあるか）・起動ディレクトリ・Codex CLI の設定を確認し、ユーザーに報告する。
 
 #### 初回レビュー（機能追加の場合）
 
 ```bash
 mkdir -p docs/issues/{案件フォルダ}/reviews
 codex exec -o docs/issues/{案件フォルダ}/reviews/codex-01.result.md \
-  "docs/REVIEW_CRITERIA.md の基準に従い、以下のドキュメントをレビューせよ: docs/issues/{案件フォルダ}/requirements.md docs/issues/{案件フォルダ}/design.md 。瑣末な点へのクソリプはしないで、致命的な点のみ指摘して。発見した問題を重要度(高/中/低)で分類し、修正提案とともに報告すること。" \
+  "docs/REVIEW_CRITERIA.md の基準に従い、以下のドキュメントをレビューせよ: docs/issues/{案件フォルダ}/requirements.md docs/issues/{案件フォルダ}/design.md 。" \
   > docs/issues/{案件フォルダ}/reviews/codex-01.full.log 2>&1
 ```
 
@@ -198,7 +202,7 @@ codex exec -o docs/issues/{案件フォルダ}/reviews/codex-01.result.md \
 ```bash
 mkdir -p docs/issues/{案件フォルダ}/reviews
 codex exec -o docs/issues/{案件フォルダ}/reviews/codex-01.result.md \
-  "docs/REVIEW_CRITERIA.md および docs/BUGFIX_STANDARD.md の基準に従い、以下のドキュメントをレビューせよ: docs/issues/{案件フォルダ}/investigation.md 。requirements.md / design.md を変更した場合はそれらもレビュー対象に含めること。瑣末な点へのクソリプはしないで、致命的な点のみ指摘して。発見した問題を重要度(高/中/低)で分類し、修正提案とともに報告すること。" \
+  "docs/REVIEW_CRITERIA.md および docs/BUGFIX_STANDARD.md の基準に従い、以下のドキュメントをレビューせよ: docs/issues/{案件フォルダ}/investigation.md 。requirements.md / design.md を変更した場合はそれらもレビュー対象に含めること。" \
   > docs/issues/{案件フォルダ}/reviews/codex-01.full.log 2>&1
 ```
 
@@ -207,7 +211,7 @@ codex exec -o docs/issues/{案件フォルダ}/reviews/codex-01.result.md \
 ```bash
 mkdir -p docs/issues/{案件フォルダ}/reviews
 codex exec -o docs/issues/{案件フォルダ}/reviews/codex-01.result.md \
-  "以下のドキュメントをレビューせよ: docs/issues/{案件フォルダ}/README.md docs/issues/{案件フォルダ}/design.md 。レビュー観点は次の3点: (1) 反映計画の自己完結性（design.md だけで作業ができるか） (2) 情報の喪失（削除・置換対象に、他所に存在しない情報が含まれていないか） (3) 変更後のドキュメント間整合性（参照切れ、矛盾、案件の漏れ・重複）。瑣末な点へのクソリプはしないで、致命的な点のみ指摘して。発見した問題を重要度(高/中/低)で分類し、修正提案とともに報告すること。" \
+  "以下のドキュメントをレビューせよ: docs/issues/{案件フォルダ}/README.md docs/issues/{案件フォルダ}/design.md 。レビュー観点は次の3点: (1) 反映計画の自己完結性（design.md だけで作業ができるか） (2) 情報の喪失（削除・置換対象に、他所に存在しない情報が含まれていないか） (3) 変更後のドキュメント間整合性（参照切れ、矛盾、案件の漏れ・重複）。" \
   > docs/issues/{案件フォルダ}/reviews/codex-01.full.log 2>&1
 ```
 
@@ -217,7 +221,7 @@ codex exec -o docs/issues/{案件フォルダ}/reviews/codex-01.result.md \
 
 ```bash
 codex exec resume {SESSION_ID} -o docs/issues/{案件フォルダ}/reviews/codex-02.result.md \
-  "ドキュメントを更新したので再レビューして。前回と同じ基準で。前回指摘が解消されたかを含めて確認して。瑣末な点へのクソリプはしないで、致命的な点のみ指摘して。重要度(高/中/低)で分類し、修正提案とともに報告すること。" \
+  "ドキュメントを更新したので再レビューして。前回と同じ基準で。前回指摘が解消されたかを含めて確認して。" \
   > docs/issues/{案件フォルダ}/reviews/codex-02.full.log 2>&1
 ```
 
