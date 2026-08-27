@@ -60,6 +60,8 @@ DEV_TEMPLATE/
 3. **設計・保存** → どのテンプレートファイルに・どのように反映するかを、案件フォルダの `design.md` に書いてファイル保存する（自己完結・曖昧表現禁止。/clear 後でも design.md だけ読めば反映作業ができるレベルまで具体化する）。**保存が完了するまでテンプレートの編集に進んではならない**
 4. **レビュー（Codex → 人）** → `template/CLAUDE.md` の「Codexによるレビューの実行方法（Herdr 対話方式）」を以下の読み替えで適用する。前提環境の確認、ストリームのライフサイクル、反復レビュー→`/new` 全文ゲート、重要度「高・中」ゼロ収束→人レビューの順序はそのまま従う
    - ストリーム命名: `{{プロジェクト略称}}` は `devtmpl` と読み替える（例: `rev-devtmpl-update-004`）
+   - パスの読み替え: 節内の `docs/HERDR_SETUP.md` は `template/docs/HERDR_SETUP.md`、`docs/codex-exec-ubuntu24-bwrap-fix.md` は `template/docs/codex-exec-ubuntu24-bwrap-fix.md` と読み替える
+   - `docs/REVIEW_CRITERIA.md` の基準は本リポジトリでは適用せず、下記のレビュー観点3点の明示で代替する（従来どおりの運用）
    - 保存先: `docs/issues/{案件フォルダ}/reviews/`（codex-NN.result.md を git 管理。full.log は生成しない。過去案件の full.log のための除外設定は `.gitignore` に残置）
    - レビュー対象: `README.md` と `design.md`
    - レビュー観点: (1) ドキュメント間の矛盾・参照切れ（存在しないファイル・セクションへの参照、フロー番号のずれ）(2) テンプレートとしての汎用性（プロジェクト固有記述の混入、プレースホルダの不足・不整合）(3) 新規プロジェクトへコピーした直後にそのまま運用できるか
