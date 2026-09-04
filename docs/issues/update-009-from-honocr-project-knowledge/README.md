@@ -111,7 +111,7 @@ honOCR は `CLAUDE.md` を変更した全17コミットを機械集計し、feat
 - `template/AGENTS.md`・`template/docs/` 配下の既存ファイル（`TECH_STACK.md` を含む。移動対象セクションへの参照がないため）
 - `template/CLAUDE.md` の上記以外のセクション（開発方針・レビュー手順・運用ルール・コーディング規約等の統治部分）
 - 本リポジトリ（DEV_TEMPLATE）自身のルート `CLAUDE.md` への同分離の適用（本リポジトリは知識セクションを持たないため不要）
-- honOCR 側のファイルの変更（一切行わない）。honOCR 版 R3 の但し書きの矛盾（design.md 8章「本案件固有の判断1」）を honOCR へ逆還元するかは別途ユーザーが判断する
+- honOCR 側のファイルの変更（一切行わない）。honOCR 版 R3 の但し書きの矛盾（design.md 8章「本案件固有の判断1」）の逆還元は honOCR 側で実施する（2026-09-04 ユーザー決定）。手順は本案件フォルダの `feedback-to-honocr.md` に記録した
 
 ## 関連ファイル
 
@@ -119,3 +119,4 @@ honOCR は `CLAUDE.md` を変更した全17コミットを機械集計し、feat
 - 反映先: `template/docs/PROJECT_KNOWLEDGE.md`（新規）、`template/CLAUDE.md`
 - 反映設計書: 本案件フォルダの `design.md`
 - 関連案件: update-008（honOCR update-002 の取り込み。同じ反映元リポジトリ）
+- honOCR への逆還元メモ: 本案件フォルダの `feedback-to-honocr.md`（update-008・update-009 の両方で見つかった honOCR CLAUDE.md の矛盾2件。honOCR 側で実施する）

@@ -83,7 +83,7 @@ honOCR 版は全文ゲート（C）を「案件（細分化して並列に進め
 - `template/AGENTS.md`・`template/docs/HERDR_SETUP.md`・`template/docs/REVIEW_CRITERIA.md`・その他 `template/docs/` 配下
 - ルート `CLAUDE.md` のディレクトリ構成（ファイルの増減がないため変更なし）
 - 過去案件（update-001〜007）の `reviews/` の冒頭メタの遡及書き換え（新形式は本案件以降のレビュー結果から適用する）
-- honOCR 側のファイルの変更（一切行わない）。C の上限単位の修正を honOCR へ逆還元するかは別途ユーザーが判断する
+- honOCR 側のファイルの変更（一切行わない）。C の上限単位の修正の honOCR への逆還元は honOCR 側で実施する（2026-09-04 ユーザー決定）。手順は `docs/issues/update-009-from-honocr-project-knowledge/feedback-to-honocr.md` に記録した
 
 ## 関連ファイル
 
