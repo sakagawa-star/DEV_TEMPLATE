@@ -16,8 +16,8 @@ DEV_TEMPLATE/
 ├── CLAUDE.md                       # 本ファイル（このリポジトリの説明）
 ├── AGENTS.md                       # Codex が起動時に読む指示ファイル（レビュー定型指示。template/AGENTS.md と同一内容）
 ├── docs/
-│   └── issues/                     # テンプレート改訂案件（update-XXX。README / design / reviews）
-│       └── update-001-from-lift2d/ # 例: lift2d の運用実績を反映した案件
+│   └── issues/                     # テンプレート改訂案件
+│       └── update-{number}-{slug}/ # 例: update-001-from-lift2d（README / design / reviews）
 └── template/                       # 新規プロジェクトへコピーするテンプレート一式（payload）
     ├── CLAUDE.md                   # 新規プロジェクト用 CLAUDE.md 雛形（{{ }} プレースホルダ入り）
     ├── AGENTS.md                   # 新規プロジェクト用 Codex 指示ファイル（レビュー定型指示。そのまま転用可）
