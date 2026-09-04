@@ -23,6 +23,7 @@ DEV_TEMPLATE/
     ├── AGENTS.md                   # 新規プロジェクト用 Codex 指示ファイル（レビュー定型指示。そのまま転用可）
     ├── .gitignore                  # レビュー過程ログ等の除外設定（そのまま転用可）
     └── docs/
+        ├── PROJECT_KNOWLEDGE.md      # プロジェクト知識の空雛形（{{ }} プレースホルダ入り）
         ├── BACKLOG.md                # 案件一覧の空雛形（{{ }} プレースホルダ入り）
         ├── CHANGELOG.md              # リリース履歴の空雛形（そのまま転用可）
         ├── TECH_STACK.md             # 技術スタックの空雛形（{{ }} プレースホルダ入り）
@@ -41,8 +42,8 @@ DEV_TEMPLATE/
    - `template/AGENTS.md` → プロジェクトルートの `AGENTS.md`
    - `template/.gitignore` → プロジェクトルートの `.gitignore`
    - `template/docs/*` → プロジェクトの `docs/`
-2. コピーした `CLAUDE.md` / `docs/BACKLOG.md` / `docs/TECH_STACK.md` の `{{ }}` プレースホルダをプロジェクト固有の内容に置き換え、記入例コメントを削除する
-3. `docs/` 直下の4基準（REQUIREMENTS / DESIGN / BUGFIX / REVIEW）は原則そのまま使う
+2. コピーした `CLAUDE.md` / `docs/PROJECT_KNOWLEDGE.md` / `docs/BACKLOG.md` / `docs/TECH_STACK.md` の `{{ }}` プレースホルダをプロジェクト固有の内容に置き換え、記入例コメントを削除する
+3. `docs/` 直下の4基準（REQUIREMENTS / DESIGN / BUGFIX / REVIEW）は原則そのまま使う。`docs/PROJECT_KNOWLEDGE.md` は案件の完了処理で継続的に更新する（`CLAUDE.md` の変更は update 案件でのみ行う）
 4. `docs/issues/` は最初の案件作成時にフォルダを作る（空フォルダの事前作成は不要）
 
 ## テンプレート保守の方針
