@@ -19,7 +19,7 @@
 ```
 {{project-root}}/
 ├── CLAUDE.md               # 開発フロー・運用ルール（統治）
-├── AGENTS.md               # Codex が起動時に読む指示ファイル（レビュー定型指示）
+├── AGENTS.md               # Codex が起動時に読む指示ファイル（レビュー定型指示と CLAUDE.md の規定への適合確認）
 ├── docs/                   # ドキュメント（開発プロセス基準）
 │   ├── PROJECT_KNOWLEDGE.md  # 本ファイル（プロジェクト知識）
 │   ├── BACKLOG.md

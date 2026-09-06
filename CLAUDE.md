@@ -14,13 +14,13 @@
 ```
 DEV_TEMPLATE/
 ├── CLAUDE.md                       # 本ファイル（このリポジトリの説明）
-├── AGENTS.md                       # Codex が起動時に読む指示ファイル（レビュー定型指示。template/AGENTS.md と同一内容）
+├── AGENTS.md                       # Codex が起動時に読む指示ファイル（レビュー定型指示と、本リポジトリのテンプレート改訂フローの規定への適合確認。template/AGENTS.md の規定適合確認の項目の参照先を本リポジトリ向けに読み替えた版）
 ├── docs/
 │   └── issues/                     # テンプレート改訂案件
 │       └── update-{number}-{slug}/ # 例: update-001-from-lift2d（README / design / reviews）
 └── template/                       # 新規プロジェクトへコピーするテンプレート一式（payload）
     ├── CLAUDE.md                   # 新規プロジェクト用 CLAUDE.md 雛形（{{ }} プレースホルダ入り）
-    ├── AGENTS.md                   # 新規プロジェクト用 Codex 指示ファイル（レビュー定型指示。そのまま転用可）
+    ├── AGENTS.md                   # 新規プロジェクト用 Codex 指示ファイル（レビュー定型指示と CLAUDE.md の規定への適合確認。そのまま転用可）
     ├── .gitignore                  # レビュー過程ログ等の除外設定（そのまま転用可）
     └── docs/
         ├── PROJECT_KNOWLEDGE.md      # プロジェクト知識の空雛形（{{ }} プレースホルダ入り）
